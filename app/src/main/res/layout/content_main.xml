@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="#FFFF"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.don.myapplication.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:textColor="#6796A6"
+        android:text="Nummer"/>
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+
+        android:textColor="#3C7560"
+        android:layout_height="wrap_content"
+        android:hint="Typ hier uw 06 nummer..."
+        android:alpha="0.7"
+        android:textSize="12dp"
+        android:inputType="number"
+        android:id="@+id/telnummer"
+        android:singleLine="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:id="@+id/tvbericht"
+        android:textColor="#6796A6"
+        android:textSize="16dp"
+        android:text="Bericht" />
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#3C7560"
+        android:hint="Typ hier uw bericht..."
+        android:alpha="0.7"
+        android:id="@+id/etbericht"
+        android:textSize="12dp" />
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#6796A6"
+        android:textSize="16dp"
+        android:text="Encrypted Bericht" />
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:hint="Hier wordt het Encrypted bericht getoond"
+        android:id="@+id/tvEncrypt"
+        android:textColor="#3C7560"
+        android:alpha="0.7"/>
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_marginTop="25dp"
+        android:layout_height="wrap_content"
+
+        android:max="25"
+        android:id="@+id/seek"/>
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Verzenden"
+        android:id="@+id/btnverzend"
+        android:onClick="Verzend"
+        android:background="#3C7560"
+        android:textColor="#B1C8D8"
+
+        android:layout_gravity="center_horizontal"/>
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="Cancel"
+        android:onClick="Reset"
+        android:background="#3C7560"
+        android:textColor="#B1C8D8"
+        android:id="@+id/reset"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
