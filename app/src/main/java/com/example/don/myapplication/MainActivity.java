@@ -94,6 +94,10 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Seek
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.about) {
+            startActivity(new Intent(getBaseContext(), AboutActivity.class));
+
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Seek
        // tv.setText(encryptChar(chr, 4));
        //tv.setText(" ");
         if(et.getText().toString()== "") return;
-        tv.setText(encryptString(et.getText().toString(), 4));
+        tv.setText(encryptString(et.getText().toString(), sb.getProgress()));
     }
 
     @Override
