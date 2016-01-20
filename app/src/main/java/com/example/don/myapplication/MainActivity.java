@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Seek
         tel = (EditText) findViewById(R.id.telnummer);
         editText = (EditText) findViewById(R.id.etbericht);
         editText.addTextChangedListener(this);
-//        sb = (SeekBar) findViewById(R.id.seek);
-//        sb.setOnSeekBarChangeListener(this);
+       sb = (SeekBar) findViewById(R.id.seek);
+       sb.setOnSeekBarChangeListener(this);
 //        sb.setProgress(0);
 //        sb.setMax(11);
     }
@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Seek
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+
     }
 
     @Override
@@ -111,16 +112,19 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Seek
     public void afterTextChanged(Editable str) {
         char chr = str.charAt(str.length() - 1);
        // tv.setText(encryptChar(chr, 4));
-        tv.setText(tv.getText().toString()+encryptChar(chr,4));
+       //tv.setText(" ");
+        if(et.getText().toString()== "") return;
+        tv.setText(encryptString(et.getText().toString(), 4));
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+        tv.setText(encryptString(et.getText().toString(),progress));
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
+
 
     }
 
