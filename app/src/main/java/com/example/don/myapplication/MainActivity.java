@@ -23,17 +23,17 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-public class MainActivity extends AppCompatActivity implements TextWatcher, SeekBar.OnSeekBarChangeListener {/**/
-    EditText et;
-    EditText tel;
-    TextView tv;
+public class MainActivity extends AppCompatActivity implements TextWatcher, SeekBar.OnSeekBarChangeListener {
+    EditText edit;
+    EditText edit2;
+    TextView text;
     EditText editText;
-    SeekBar sb;
+    SeekBar seekb;
 
     public void Verzend(View view) {
-        String phoneNo = tel.getText().toString();
-        String encrypt = encryptString(et.getText().toString(), 4);
-        tv.setText(encrypt);
+        String phoneNo = edit2.getText().toString();
+        String encrypt = encryptString(edit.getText().toString(), seekb.getProgress());
+        text.setText(encrypt);
 
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNo, null, encrypt, null, null);
@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Seek
         StringBuilder result = new StringBuilder("");
         char c;
         for (int i = 0; i < string.length(); i++) {
-//            c = string.charAt(i);
-//            c = (char) (c + key);
             result.append(encryptChar(string.charAt(i), key));
         }
         return result.toString();
@@ -57,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Seek
     }
 
     public void Reset(View view1) {
-        et.setText("");
-        tv.setText("");
+        edit.setText("");
+        text.setText("");
     }
 
     @Override
@@ -66,40 +64,43 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Seek
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        et = (EditText) findViewById(R.id.etbericht);
-        tv = (TextView) findViewById(R.id.tvEncrypt);
-        tel = (EditText) findViewById(R.id.telnummer);
+        edit = (EditText) findViewById(R.id.etbericht);
+        text = (TextView) findViewById(R.id.tvEncrypt);
+        edit2 = (EditText) findViewById(R.id.telnummer);
         editText = (EditText) findViewById(R.id.etbericht);
         editText.addTextChangedListener(this);
-       sb = (SeekBar) findViewById(R.id.seek);
-       sb.setOnSeekBarChangeListener(this);
-//        sb.setProgress(0);
-//        sb.setMax(11);
+       seekb = (SeekBar) findViewById(R.id.seek);
+       seekb.setOnSeekBarChangeListener(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
+
         if (id == R.id.action_settings) {
             return true;
         }
         if (id == R.id.about) {
-            startActivity(new Intent(getBaseContext(), AboutActivity.class));
+            Intent naam = new Intent(getBaseContext(), AboutActivity.class);
+            naam.putExtra("data", seekb.getProgress());
+
+           // startActivity(naam);
+           // startActivityForResult(naam);
+            startActivityForResult(naam, 1234);
 
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -115,15 +116,13 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Seek
     @Override
     public void afterTextChanged(Editable str) {
         char chr = str.charAt(str.length() - 1);
-       // tv.setText(encryptChar(chr, 4));
-       //tv.setText(" ");
-        if(et.getText().toString()== "") return;
-        tv.setText(encryptString(et.getText().toString(), sb.getProgress()));
+        if(edit.getText().toString()== "") return;
+        text.setText(encryptString(edit.getText().toString(), seekb.getProgress()));
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        tv.setText(encryptString(et.getText().toString(),progress));
+        text.setText(encryptString(edit.getText().toString(),progress));
     }
 
     @Override
@@ -135,5 +134,19 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Seek
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        System.out.println("dikke BMW");
+        if (resultCode == RESULT_OK) {
+
+            Bundle extras = data.getExtras();
+
+            TextView iv = (TextView) findViewById(R.id.textview);
+            iv.setText(extras.getString("data"));
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
